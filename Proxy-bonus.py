@@ -8,11 +8,11 @@ import time
 import email.utils
 import datetime
 
-cacheData =0 
+
 fresh = False
 max_age = 0
 expires_time = 0
-
+cacheData=0
 for line in cacheData:
     if "Cache-control" in line:
         if "no-cache" in line or "no-store" in line:
@@ -33,10 +33,7 @@ if expires_time:
     else:
         fresh = True
 elif max_age is not None and max_age>0:
-    if time.time() - last_modified_time <= max_age:
         fresh = True
-    else:
-        fresh = False
 
 if not fresh:
     cacheFile.close()
@@ -46,8 +43,7 @@ response_data = "".join(cacheData)
 clientSocket.sendall(response_data.encode('utf-8'))
 print(f"response sent to client: {response_data}")
 
-with open(cacheLocation, 'wb') as cacheFile:
-    cacheFile.write(response_data.encode('utf-8'))
+
     
     
         
