@@ -180,11 +180,13 @@ while True:
         if not data:
           break
         response_data += data
+      
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
       # ~~~~ INSERT CODE ~~~~
       clientSocket.sendall(response_data)
+      
       # ~~~~ END CODE INSERT ~~~~
 
       # Create a new file in the cache for the requested file.
@@ -193,6 +195,8 @@ while True:
       if not os.path.exists(cacheDir):
         os.makedirs(cacheDir)
       cacheFile = open(cacheLocation, 'wb')
+      cacheFile.write(response_data)
+      cacheFile.close()
 
       # Save origin server response in the cache file
       # ~~~~ INSERT CODE ~~~~
